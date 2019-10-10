@@ -1,28 +1,35 @@
 <template>
-<div class="flex flex-col ">
+<div class="flex flex-col min-h-screen">
   <div id="welcome" class="p-4 bg-gray-800 text-center">
     <h2 class="text-white">We found You in</h2>
     <h1 class="text-indigo-200 text-3xl">{{location}}</h1>
-    <h3 class="text-xs"><a @click.prevent="promptForZip" class="underline text-white" href="#">Not Here?</a></h3>
+    <h3 class="text-xs">
+      <a @click.prevent="promptForZip" class="underline text-white" href="#">
+        Not Here?
+      </a>
+    </h3>
   </div>
-  <div class="flex-grow mt-12 flex flex-col sm:w-full md:w-2/3 mx-auto" id="weather">
+  <div class="flex-grow mb-4 mt-12 sm:w-full md:w-2/3 mx-auto">
     <h2 class="text-3xl text-indigo-400 text-center">{{today}}</h2>
     <div class="mt-16">
       <div class="text-2xl text-gray-800 text-center" v-if="!weatherPeriods.length">
-        <p v-if="error">{{error}}</p>
-        <p v-else>Waiting on the Weather!</p>
+        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+          <p class="font-bold">Notice</p>
+          <p v-if="error">{{error}}</p>
+          <p v-else>Waiting on the Weather!</p>
+        </div>
       </div>
       <div  v-if="weatherPeriods.length"
-            class="flex items-center justify-center text-center w-full text-gray-600">
-        <div class="" v-for="period in weatherPeriods">
-          <div class="border-t border-b text-sm text-gray-800 sm:px-2 md:px-4 lg:px-8 py-2">
+            class="flex justify-center text-center">
+        <div class="w-12 md:w-16 lg:w-20" v-for="period in weatherPeriods">
+          <div class="border-t border-b text-sm text-gray-800 py-2">
             <p>{{formatWeatherPeriod(period.dt)}}</p>
           </div>
           <div class="pl-1 mt-1 text-gray-500 text-lg">
             <p>{{formatTemp(period.main.temp)}}&deg;</p>
           </div>
-          <div class="w-8 text-center inline-block">
-            <img v-if="true" class="" :src="buildIconUrl(period.weather)">
+          <div class="">
+            <img :src="buildIconUrl(period.weather)">
           </div>
         </div>
       </div>
@@ -41,7 +48,6 @@
   /* eslint-disable */
 import axios from 'axios';
 import moment from 'moment';
-import WeatherIcon from "./WeatherIcon.vue"
 const envVars = require('../env.js')
 
 export default {
@@ -127,10 +133,10 @@ export default {
         },
         buildAPIUrl(position, zip = null) {
             if (zip === null) {
-                return `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=${envVars.apiKey}&lat=${position.coords.latitude}&lon=${position.coords.longitude}&cnt=8`
+                return `https://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=${envVars.apiKey}&lat=${position.coords.latitude}&lon=${position.coords.longitude}&cnt=8`
             }
             if (zip) {
-                return `http://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=${envVars.apiKey}&zip=${this.zip},us&cnt=8`
+                return `https://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=${envVars.apiKey}&zip=${this.zip},us&cnt=8`
             }
             return null;
         },
