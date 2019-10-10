@@ -2,7 +2,7 @@
 
 ## About
 
-This Weather App is a geolocation enabled app that fetches the weather forecast for the next upcoming 21 hours in 3 hour windows.
+This Weather App is a geolocation enabled responsive web-app that fetches the weather forecast for the next 24 hours in 3 hour windows.
 
 If geolocation is not enabled on your browser, you can enter a us 5 digit zip code to display the weather in the associated area.
 
@@ -16,9 +16,9 @@ If geolocation is not enabled on your browser, you can enter a us 5 digit zip co
 
 ### Your Env
 
-env.js is used to store your api key to openweathermap.org.
+env.js is used to store YOUR Api Key to openweathermap.org.
 
-Use yours not mine.
+Use YOUR Api Key not mine.
 
 ### Location Display
 
@@ -26,9 +26,9 @@ Due to a limitation of the openweathermap.org, your displayed location does not 
 
 ## Notes on Implementation
 
-This app is built on Vue and uses 'fetch' to get the weather forecast from openweathermap.
+This app is built on [Vue.js](https://vuejs.org) and uses 'fetch' to get the weather forecast from openweathermap.
 
-It uses moment for parsing and formatting time.
+It uses [momentjs](https://momentjs.com) for parsing and formatting time.
 
 It uses [tailwind.css](https://tailwindcss.com), a utility first css framework for styling.
 

@@ -45,9 +45,9 @@
 </div>
 </template>
 <script>
-  /* eslint-disable */
-import axios from 'axios';
-import moment from 'moment';
+/* eslint-disable */
+// import axios from 'axios'
+import moment from 'moment'
 const envVars = require('../env.js')
 
 export default {
@@ -71,10 +71,10 @@ export default {
         fetchByZip() {
             if (!this.zip || !this.zip.match(/^\d{5}$/)) {
                 alert('Please enter an valid 5 digit zipcode.')
-                return;
+                return
             }
-            this.weatherLocation = null;
-            this.weatherPeriods = [];
+            this.weatherLocation = null
+            this.weatherPeriods = []
             this.fetchWeather(null, this.zip)
         },
         setLatLong() {
@@ -88,6 +88,8 @@ export default {
             alert("Enter a zip code, or enable geolocation.")
         },
         fetchWeather(position, zip = null) {
+            this.error = null
+
             const url = this.buildAPIUrl(position, zip)
 
             if (url === null) {
@@ -104,26 +106,25 @@ export default {
                         })
                 })
                 .catch(err => {
-                    alert('Unable to fetch weather data');
+                    alert('Unable to fetch weather data')
                     this.error = err.message
-                    console.log(err.code);
-                });
-            return;
+                    console.log(err.code)
+                })
+            return
 
-            axios
-                .get(url)
-                .then(resp => {
-                    this.parseWeatherData(resp.data)
-                })
-                .catch(err => {
-                    alert('We are unable to fetch the weather for you.')
-                    console.log(err)
-                })
+            // axios
+            //     .get(url)
+            //     .then(resp => {
+            //         this.parseWeatherData(resp.data)
+            //     })
+            //     .catch(err => {
+            //         alert('We are unable to fetch the weather for you.')
+            //         console.log(err)
+            //     })
         },
         parseWeatherData(data) {
-            console.log(data)
             if (data.cod && data.cod !== "200") {
-                alert('Pares says We are unable to fetch weather.');
+                alert('We are unable to the fetch weather for you.')
                 this.error = data.message
                 return
             }
@@ -138,7 +139,7 @@ export default {
             if (zip) {
                 return `https://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=${envVars.apiKey}&zip=${this.zip},us&cnt=8`
             }
-            return null;
+            return null
         },
         formatWeatherPeriod(value) {
             return moment.unix(value).format("ha").replace('m','')
